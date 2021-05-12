@@ -1,16 +1,66 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+    font-family: Poppins;
+    outline: none;
+}
+.FormInput{
+    @apply font-light;
+    width: 373.91px;
+    font-family: Poppins;
+    font-size: 12px;
+    line-height: 18px;
+    color: #E3E5EB;
+    letter-spacing: 1px;
+}
+fieldset{
+    padding: 5px 8px 11px 11px;
+}
+.text-divider {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    color: #E3E5EB;
+    width: 374px;
+    display: flex;
+    align-items: center;
+    --text-divider-gap: 6px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.text-divider::before,
+.text-divider::after {
+    content: '';
+    height: 1px;
+    background-color: rgba(227, 229, 235, 0.5);
+    flex-grow: 1;
 }
 
-* {
-  box-sizing: border-box;
+.text-divider::before {
+    margin-right: var(--text-divider-gap);
 }
+
+.text-divider::after {
+    margin-left: var(--text-divider-gap);
+}
+button{
+    outline:none;
+}
+button:focus{
+    outline:none;
+}
+fieldset{
+    border: 0.75px solid #E3E5EB
+}
+
+input[type='range']::-webkit-slider-thumb {
+    width: 12px;
+    -webkit-appearance: none;
+    height: 12px;
+    background: #E3E5EB;
+    border-radius: 50%;
+    cursor: pointer;
+  }
