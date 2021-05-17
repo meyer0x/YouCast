@@ -10,15 +10,14 @@ import { useGlobalContext } from "../contexts/global/global.context";
 import { AuthState } from "../enums/authState.enum";
 import { getCredentialStorage } from "../utils/credentielStorage";
 
-export default function Home(): JSX.Element {
-  return <MainApp />;
+export default function Home({ data }): JSX.Element {
+  return <MainApp data={data} />;
 }
 
-function MainApp(): JSX.Element {
+function MainApp({ data }): JSX.Element {
+  console.log(typeof data);
   const [state, setState] = useState(<h1>ACCUEIL</h1>);
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
+
   function showComponent(componentToAdd: JSX.Element): void {
     setState(componentToAdd);
   }
@@ -27,12 +26,19 @@ function MainApp(): JSX.Element {
     <div className="h-screen bg-youcast-bg w-screen overflow-hidden flex flex-row">
       <Layout title="YouCast - Accueil" />
       <SideBar setComponent={showComponent} currentComponent={state}>
-        <PlayerBar>{state}</PlayerBar>
+        <PlayerBar tracks={data}>{state}</PlayerBar>
       </SideBar>
     </div>
   );
 }
 
+// This gets called on every request
+export async function getServerSideProps() {
+  const res = await fetch(`http://127.0.0.1:3333/podcast/all`);
+  const data = await res.json();
+  console.log(data);
+  return { props: { data } };
+}
 // export async function getServerSideProps(): Promise<unknown> {
 //   // Fetch data from external API
 //   const cookie = getCredentialStorage();

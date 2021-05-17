@@ -13,7 +13,7 @@ export default function Button(props: IButtonProps): JSX.Element {
     <Link href={props.link}>
       <button
         type="submit"
-        className={`w-auto md:w-96 h-12 rounded-xl text-youcast-white text-xl  ${
+        className={`w-72 sm:w-80 md:w-96 h-12 rounded-xl text-youcast-white text-xl  ${
           props.style
         } ${
           props.isTransparent ? "bg-transparent border" : "bg-youcast-lightblue"

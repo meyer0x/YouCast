@@ -4,13 +4,14 @@ import TopContentLoginPage from "../../components/Form/components/TopContentLogi
 import RegisterForm from "../../components/Form/RegisterForm";
 import Layout from "../../components/Layout";
 import LogoYouCast from "../../components/LogoYouCast";
+import { getCredentialStorage } from "../../utils/credentielStorage";
 import { Separator } from "../Login";
 
 export default function Index(): JSX.Element {
   return (
-    <div className="h-screen flex justify-center items-center bg-youcast-bg flex-col">
+    <div className="h-full lg:h-screen flex justify-center items-center bg-youcast-bg flex-col">
       <Layout title="YouCast - Inscription" />
-      <LogoYouCast style="cursor-pointer mb-6" width={274} height={96} />
+      <LogoYouCast style="cursor-pointer" width={274} height={96} />
 
       <TopContentLoginPage
         style="mb-1"

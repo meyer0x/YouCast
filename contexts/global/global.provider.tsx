@@ -119,29 +119,31 @@ export function GlobalProvider(props: IGlobalProviderProps): JSX.Element {
   );
 }
 
-export const ProtectRoute = ({ children }) => {
-  const router = useRouter();
-  const [currentPath, setCurrentPath] = React.useState("");
-  React.useEffect(() => setCurrentPath(router.pathname), []);
-  const { authState, autoLoginChecked } = useGlobalContext();
-  const isLoggedIn = authState === AuthState.CONNECTED;
+// export const ProtectRoute = ({ children }) => {
+//   const router = useRouter();
+//   const [currentPath, setCurrentPath] = React.useState("");
+//   React.useEffect(() => setCurrentPath(router.pathname), [router.pathname]);
+//   const { authState, autoLoginChecked } = useGlobalContext();
+//   const isLoggedIn = authState === AuthState.CONNECTED;
 
-  if (
-    !isLoggedIn &&
-    autoLoginChecked &&
-    currentPath !== "/register" &&
-    currentPath !== "/login"
-  ) {
-    return <LoginPage />;
-  }
+//   if (
+//     !isLoggedIn &&
+//     autoLoginChecked &&
+//     currentPath !== "/register" &&
+//     currentPath !== "/login"
+//   ) {
+//     router.push("/login");
+//     return;
+//   }
 
-  if (
-    isLoggedIn &&
-    autoLoginChecked &&
-    (currentPath === "/login" || currentPath === "/register")
-  ) {
-    return <MainPage />;
-  }
+//   if (
+//     isLoggedIn &&
+//     autoLoginChecked &&
+//     (currentPath === "/login" || currentPath === "/register")
+//   ) {
+//     router.push("/");
+//     return;
+//   }
 
-  return children;
-};
+//   return children;
+// };

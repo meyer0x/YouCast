@@ -1,11 +1,22 @@
 import { FormatInputPathObject } from "path";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { useProfilContext } from "../../contexts/profil/profil.context";
+import Main from "./profil-management/main";
+import Preference from "./profil-management/Preference";
+import Subscribe from "./profil-management/Subscribe";
 import { ButtonItems } from "./SideBar";
 
 export default function ProfilManagement(): JSX.Element {
   const { userInfo, subState } = useProfilContext();
+  const [state, setState] = useState(<Main />);
+  useEffect(() => {
+    setState(state);
+  }, [state]);
+  function showComponent(componentToAdd: JSX.Element): void {
+    setState(componentToAdd);
+  }
 
   return (
     <div
@@ -16,7 +27,9 @@ export default function ProfilManagement(): JSX.Element {
         <div className="flex justify-center items-center flex-col mb-20">
           <Image src="/testprofil.png" width={111} height={111} />
           <p className="text-youcast-white text-xl font-normal tracking-wider mt-2">
-            Roman A.
+            {`${userInfo.first_name}  ${userInfo.name
+              .substring(0, 1)
+              .toUpperCase()}.`}
           </p>
         </div>
         <div className="flex flex-col justify-center mb-10">
@@ -46,6 +59,8 @@ export default function ProfilManagement(): JSX.Element {
                     />
                   </svg>
                 }
+                style={state.type.name === "Main" ? "bg-youcast-hover" : ""}
+                onclick={(): void => showComponent(<Main />)}
               />
             </div>
             <div className="flex justify-center items-center">
@@ -67,6 +82,8 @@ export default function ProfilManagement(): JSX.Element {
                     />
                   </svg>
                 }
+                style={state.type.name === "h1" ? "bg-youcast-hover" : ""}
+                onclick={(): void => showComponent(<Subscribe />)}
               />
             </div>
           </div>
@@ -104,6 +121,7 @@ export default function ProfilManagement(): JSX.Element {
                     />
                   </svg>
                 }
+                onclick={(): void => showComponent(<Preference />)}
               />
             </div>
             <div className="flex justify-center items-center">
@@ -131,95 +149,7 @@ export default function ProfilManagement(): JSX.Element {
         </div>
       </div>
       <div className="w-0.5 h-full bg-gradient-to-b from-transparent via-youcast-white to-transparent "></div>
-      <div className="w-2/3 flex items-start justify-start h-full flex-col p-20 px-32">
-        <p className="text-youcast-white text-2xl">Modifier mes informations</p>
-        <div className="h-0.5 bg-youcast-hover w-full mt-8 mb-6"></div>
-        <p className="text-youcast-white text-sm tracking-wide font-light">
-          Informations personnelles
-        </p>
-        <div className="flex flex-col w-full">
-          <div className="flex flex-row w-full">
-            <div className="mt-4 w-full">
-              <label
-                htmlFor=""
-                className="text-youcast-white font-light tracking-wide text-xs ml-1"
-              >
-                Prénom
-              </label>
-              <input
-                value={userInfo.first_name}
-                autoComplete="off"
-                type="text"
-                placeholder="Prénom"
-                className="w-full bg-youcast-hover text-youcast-white border-youcast-lightgrey border py-2 px-3 pl-4 rounded-xl"
-              />
-            </div>
-            <div className="mt-4 ml-8 w-full">
-              <label
-                htmlFor=""
-                className="text-youcast-white font-light tracking-wide text-xs ml-1"
-              >
-                Nom
-              </label>
-              <input
-                value={userInfo.name}
-                autoComplete="off"
-                type="text"
-                placeholder="Nom"
-                className="w-full bg-youcast-hover text-youcast-white border-youcast-lightgrey border py-2 px-3 pl-4 rounded-xl"
-              />
-            </div>
-          </div>
-          <div className="mt-4 w-full">
-            <label
-              htmlFor=""
-              className="text-youcast-white font-light tracking-wide text-xs ml-1"
-            >
-              Adresse email
-            </label>
-            <input
-              value={userInfo.email}
-              autoComplete="off"
-              type="text"
-              placeholder="Adresse email"
-              className="w-full bg-youcast-hover text-youcast-white border-youcast-lightgrey border py-2 px-3 pl-4 rounded-xl"
-            />
-          </div>
-        </div>
-        <div className="h-0.5 bg-youcast-hover w-full mt-16 mb-6"></div>
-        <div className="flex flex-col w-full">
-          <div className="flex flex-row w-full">
-            <div className="mt-4 w-full">
-              <label
-                htmlFor=""
-                className="text-youcast-white font-light tracking-wide text-xs ml-1"
-              >
-                Nouveau mot de passe
-              </label>
-              <input
-                autoComplete="off"
-                type="password"
-                placeholder="Mot de passe"
-                className="w-full bg-youcast-hover text-youcast-white border-youcast-lightgrey border py-2 px-3 pl-4 rounded-xl"
-              />
-            </div>
-            <div className="mt-4 ml-8 w-full">
-              <label
-                htmlFor=""
-                className="text-youcast-white font-light tracking-wide text-xs ml-1"
-              >
-                Confirmation
-              </label>
-              <input
-                autoComplete="off"
-                type="text"
-                placeholder="Confirme le mot de passe"
-                className="w-full bg-youcast-hover text-youcast-white border-youcast-lightgrey border py-2 px-3 pl-4 rounded-xl"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      {state}
     </div>
   );
 }

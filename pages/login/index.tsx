@@ -33,13 +33,9 @@ export default function Index(props): JSX.Element {
   //   return <div>{"Vous êtes déjà connecté. Cookies : " + props.cookie}</div>;
   // }
   return (
-    <div className="h-screen flex justify-center items-center bg-youcast-bg flex-col">
+    <div className="h-screen flex justify-center items-center bg-youcast-bg flex-col w-screen">
       <Layout title="YouCast - Connexion" />
-      <LogoYouCast
-        style="-mt-16 mb-20 cursor-pointer"
-        width={274}
-        height={96}
-      />
+      <LogoYouCast style="mb-20 cursor-pointer" width={274} height={96} />
       <TopContentLoginPage
         style="mb-2"
         firstText="Connexion via réseaux sociaux : "
@@ -48,7 +44,7 @@ export default function Index(props): JSX.Element {
       <Separator text="Vous n'avez pas encore de compte ?" />
       <Button
         text="Crée un compte"
-        style="mb-8"
+        style="mb-8 "
         isTransparent
         link="/register"
       />

@@ -1,33 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { useProfilContext } from "../../contexts/profil/profil.context";
+import { getAllPodcast } from "../../networks/podcast.network";
 import AudioControls from "./AudioControls";
 import { ISideBarProps } from "./SideBar";
-export default function PlayerBar(props: ISideBarProps): JSX.Element {
-  const tracks = [
-    {
-      title: "Yamete Kudasai",
-      artist: "Japonais",
-      audioSrc: "/ya.mp3",
-      image:
-        "https://image.noelshack.com/fichiers/2017/38/5/1506102235-cirno.png",
-      episode: "1",
-    },
-    {
-      title: "Bad Guy",
-      artist: "Billie Elish",
-      audioSrc: "/billie-eilish-bad-guy.mp3",
-      image: "https://i1.sndcdn.com/artworks-000585893159-qra1pk-t500x500.jpg",
-      episode: "2",
-    },
-    {
-      title: "Dommage",
-      artist: "BigFlo & Oli",
-      audioSrc: "/bigflo-oli-dommage.mp3",
-      image: "https://i1.sndcdn.com/artworks-000257065208-frsyc1-t500x500.jpg",
-      episode: "3",
-    },
-  ];
+
+interface IPlayerBarProps {
+  children: ReactNode;
+  tracks?: any;
+}
+export default function PlayerBar(props: IPlayerBarProps): JSX.Element {
+  const tracks = props.tracks;
   // UseState
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
@@ -36,10 +19,10 @@ export default function PlayerBar(props: ISideBarProps): JSX.Element {
 
   // Tracks
 
-  const { title, artist, audioSrc, image } = tracks[trackIndex];
+  const { name, artist, link, image } = tracks[trackIndex];
 
   // Refs
-  const audioRef = useRef(typeof Audio !== "undefined" && new Audio(audioSrc));
+  const audioRef = useRef(typeof Audio !== "undefined" && new Audio(link));
   const intervalRef = useRef();
   const isReady = useRef(false);
 
@@ -104,7 +87,7 @@ export default function PlayerBar(props: ISideBarProps): JSX.Element {
 
   useEffect(() => {
     audioRef.current.pause();
-    audioRef.current = new Audio(audioSrc);
+    audioRef.current = new Audio(link);
     audioRef.current.volume = volume / 100;
     setTrackProgress(audioRef.current.currentTime);
 
@@ -144,7 +127,7 @@ export default function PlayerBar(props: ISideBarProps): JSX.Element {
   return (
     <div className="relative right-0 w-full flex-col flex justify-between h-full">
       <div
-        className="absolute bottom-0 w-full bg-youcast-mediumblue py-5 px-12 flex flex-row items-center justify-center"
+        className="absolute bottom-0 w-full bg-youcast-mediumblue py-5 px-5 lg:px-12 flex flex-row items-center justify-center"
         style={{ height: "14%" }}
       >
         <div className="flex flex-row justify-center items-center w-full">
@@ -154,23 +137,23 @@ export default function PlayerBar(props: ISideBarProps): JSX.Element {
               alt=""
               className="mr-5 w-24 rounded-xl transition-all delay-700"
             />
-            <div className=" transition-all delay-700">
+            <div className="transition-all delay-700 hidden lg:block">
               <p className="text-youcast-white font-semibold transition-all delay-700">
-                {title}
+                {name}
               </p>
               <p className="text-youcast-lightgrey text-sm font-light tracking-wide transition-all delay-700">
                 {artist}
               </p>
             </div>
           </div>
-          <div className="w-full ml-auto flex flex-col justify-center items-center">
+          <div className="flex flex-grow flex-col justify-center items-center">
             <AudioControls
               isPlaying={isPlaying}
               onPrevClick={toPrevTrack}
               onNextClick={toNextTrack}
               onPlayPauseClick={setIsPlaying}
             />
-            <div className="w-full flex flex-row justify-center items-center mt-3">
+            <div className=" hidden lg:flex w-full flex-row justify-center items-center mt-3">
               <p className="text-youcast-lightgrey font-normal tracking-wider">
                 {formatTime(audioRef.current.currentTime)}
               </p>
@@ -193,7 +176,7 @@ export default function PlayerBar(props: ISideBarProps): JSX.Element {
               </p>
             </div>
           </div>
-          <div className="flex flew-row justify-center items-center">
+          <div className="hidden lg:flex flew-row justify-center items-center">
             <img src="/Sound.svg" alt="" className="w-5" />
             <input
               id="volumeslider"

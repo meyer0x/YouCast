@@ -32,3 +32,17 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+#api
+
+/api/node_modules
+/api/build
+/api/coverage
+.vscode
+.DS_STORE
+.env
+/.env
+/.tmp
+/.DS_STORE
+/.vscode
+tmp

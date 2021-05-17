@@ -1,7 +1,10 @@
 import { ReactNode, useEffect, useState } from "react";
 import React from "react";
 import { SubState } from "../../enums/subState.enum";
-import { getUserInfoWithToken } from "../../networks/profil.network";
+import {
+  getUserInfoWithToken,
+  setAllInfo,
+} from "../../networks/profil.network";
 import { getCredentialStorage } from "../../utils/credentielStorage";
 import { IUserInfo, profilContext } from "./profil.context";
 
@@ -49,13 +52,30 @@ export function ProfilProvider(props: IProfilProviderProps): JSX.Element {
         })
       )
       .catch((err) => console.log(err));
-  }, []);
+  }, [props.children]);
+
+  const setInfo = async (
+    firstName: string,
+    name: string,
+    email: string
+  ): Promise<boolean> => {
+    const token = getCredentialStorage();
+    return new Promise((resolve, reject) => {
+      setAllInfo({ email, first_name: firstName, name, token })
+        .then((data) => {
+          getUserInfoWithToken(token);
+          resolve(true);
+        })
+        .catch(() => reject(true));
+    });
+  };
 
   return (
     <profilContext.Provider
       value={{
         subState: profilState.subState,
         userInfo: profilState.userInfo,
+        setInfo,
       }}
     >
       {props.children}

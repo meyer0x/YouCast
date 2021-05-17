@@ -22,7 +22,7 @@ export default function LoginForm(): JSX.Element {
 
   const onSubmit = (data): void => {
     login(data.email, data.password)
-      .then(() => router.push("/"))
+      .then(() => router.replace("/"))
       .catch((err) => {
         setFormError(err);
         setMessageError(

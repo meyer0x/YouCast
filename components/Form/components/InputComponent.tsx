@@ -20,7 +20,7 @@ export const InputComponent = (props: IInputComponent): JSX.Element => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {}, [visible]);
   return (
-    <div className={`w-auto md:w-96 h-14 ${props.style} `}>
+    <div className={`w-72 sm:w-80 md:w-96 h-14 ${props.style} `}>
       <fieldset className="border rounded-xl flex justify-center flex-row items-center border-youcast-white">
         <legend className="text-youcast-white font-light text-xs tracking-widest ml-1 pl-1 pr-1 ">
           {props.legend}

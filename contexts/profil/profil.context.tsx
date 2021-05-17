@@ -15,11 +15,17 @@ export interface IUserInfo {
 interface IProfilContextProps {
   subState: SubState;
   userInfo?: IUserInfo;
+  setInfo: (
+    first_name: string,
+    name: string,
+    email: string
+  ) => Promise<boolean>;
 }
 
 export const profilContext = createContext<IProfilContextProps>({
   subState: SubState.FREE,
   userInfo: null,
+  setInfo: () => Promise.reject(),
 });
 
 export const useProfilContext = (): IProfilContextProps =>

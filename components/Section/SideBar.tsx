@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { ReactNode } from "react";
 import { useGlobalContext } from "../../contexts/global/global.context";
 import LogoYouCast from "../LogoYouCast";
+import Main from "./profil-management/main";
 import ProfilManagement from "./ProfilManagement";
 
 export interface ISideBarProps {

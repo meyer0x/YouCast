@@ -11,7 +11,7 @@ export default function TopContentLoginPage(
 ): JSX.Element {
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col ${props.style}`}
+      className={`w-72 sm:w-80 md:w-full flex justify-center items-center flex-col ${props.style}`}
     >
       <p className="text-white font-light text-xs mb-3 text-center tracking-wider">
         {props.firstText}
@@ -23,15 +23,15 @@ export default function TopContentLoginPage(
           source="/googlelogo.png"
           width="20"
           height="20"
-          style=""
+          style="w-32 sm:w-32 md:w-44 text-sm md:text-base px-4 sm:px-0"
         />
         <BtnRedirect
           text="Facebook"
           alt="Logo Google"
           source="/facebooklogo.png"
-          width="24"
-          height="24"
-          style="ml-5"
+          width="20"
+          height="20"
+          style="ml-5 w-32 sm:w-32 md:w-44 text-sm md:text-base px-7 sm:px-0"
         />
       </div>
     </div>

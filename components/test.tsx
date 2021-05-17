@@ -2,7 +2,9 @@ import React from "react";
 import { useState } from "react";
 
 export default function Test(): JSX.Element {
-  const [count, setCount] = useState(0);
+  const tracks = getAllPodcast().then((data) => {
+    return data;
+  });
   return (
     <div>
       <h1>{count}</h1>
